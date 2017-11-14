@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="mydb@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
+    <root id="1"/>
+    <schema id="2" parent="1" name="mydb">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <table id="6" parent="2" name="Address"/>
+    <table id="7" parent="2" name="Color"/>
+    <table id="8" parent="2" name="Customer"/>
+    <table id="9" parent="2" name="Dress"/>
+    <table id="10" parent="2" name="Firm"/>
+    <table id="11" parent="2" name="Manufacturer_country"/>
+    <table id="12" parent="2" name="Order"/>
+    <table id="13" parent="2" name="Order_Product"/>
+    <table id="14" parent="2" name="Product"/>
+    <table id="15" parent="2" name="Product_Catagory"/>
+    <table id="16" parent="2" name="Size"/>
+    <column id="17" parent="6" name="id_Address">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="18" parent="6" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(150)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="19" parent="6" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Address</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="20" parent="7" name="id_Color">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="21" parent="7" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(12)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="22" parent="7" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Color</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="23" parent="8" name="id_Customer">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="24" parent="8" name="Ferst_name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="8" name="Last_name">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="8" name="Phone">
+      <Position>4</Position>
+      <DataType>char(17)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="8" name="E-mail">
+      <Position>5</Position>
+      <DataType>varchar(90)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="8" name="Sex">
+      <Position>6</Position>
+      <DataType>varchar(12)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="29" parent="8" name="Address">
+      <Position>7</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="30" parent="8" name="address_idx">
+      <ColNames>Address</ColNames>
+    </index>
+    <key id="31" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Customer</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="32" parent="8" name="address">
+      <ColNames>Address</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Address</RefTableName>
+      <RefColNames>id_Address</RefColNames>
+    </foreign-key>
+    <column id="33" parent="9" name="id_Dress">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="34" parent="9" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="35" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Dress</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="36" parent="10" name="id_Firm">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="37" parent="10" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="38" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Firm</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="39" parent="11" name="id_Manu_country">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="40" parent="11" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="41" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Manu_country</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="42" parent="12" name="id_Order">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="43" parent="12" name="Customer">
+      <Position>2</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="12" name="Address_delivery">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="12" name="Payment">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="12" name="Comment">
+      <Position>5</Position>
+      <DataType>varchar(1000)|0</DataType>
+    </column>
+    <column id="47" parent="12" name="Total_price">
+      <Position>6</Position>
+      <DataType>int(15)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="12" name="Data">
+      <Position>7</Position>
+      <DataType>datetime(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="49" parent="12" name="customer_idx">
+      <ColNames>Customer</ColNames>
+    </index>
+    <key id="50" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Order</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="51" parent="12" name="customer">
+      <ColNames>Customer</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Customer</RefTableName>
+      <RefColNames>id_Customer</RefColNames>
+    </foreign-key>
+    <column id="52" parent="13" name="Order">
+      <Position>1</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="13" name="Productcol">
+      <Position>2</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="54" parent="13" name="order_idx">
+      <ColNames>Order</ColNames>
+    </index>
+    <index id="55" parent="13" name="product_idx">
+      <ColNames>Productcol</ColNames>
+    </index>
+    <foreign-key id="56" parent="13" name="order">
+      <ColNames>Order</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Order</RefTableName>
+      <RefColNames>id_Order</RefColNames>
+    </foreign-key>
+    <foreign-key id="57" parent="13" name="product">
+      <ColNames>Productcol</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Product</RefTableName>
+      <RefColNames>id_Product</RefColNames>
+    </foreign-key>
+    <column id="58" parent="14" name="id_Product">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="59" parent="14" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(60)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="14" name="Product_catagory">
+      <Position>3</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="61" parent="14" name="Color">
+      <Position>4</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="62" parent="14" name="Manufacturer_Country">
+      <Position>5</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="63" parent="14" name="Price">
+      <Position>6</Position>
+      <DataType>int(15)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="14" name="Specification">
+      <Position>7</Position>
+      <DataType>varchar(1000)|0</DataType>
+    </column>
+    <index id="65" parent="14" name="color_idx">
+      <ColNames>Color</ColNames>
+    </index>
+    <index id="66" parent="14" name="manu_country_idx">
+      <ColNames>Manufacturer_Country</ColNames>
+    </index>
+    <index id="67" parent="14" name="product_catagory_idx">
+      <ColNames>Product_catagory</ColNames>
+    </index>
+    <key id="68" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Product</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="69" parent="14" name="product_catagory">
+      <ColNames>Product_catagory</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Product_Catagory</RefTableName>
+      <RefColNames>id_Product_Catagory</RefColNames>
+    </foreign-key>
+    <foreign-key id="70" parent="14" name="color">
+      <ColNames>Color</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Color</RefTableName>
+      <RefColNames>id_Color</RefColNames>
+    </foreign-key>
+    <foreign-key id="71" parent="14" name="manu_country">
+      <ColNames>Manufacturer_Country</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Manufacturer_country</RefTableName>
+      <RefColNames>id_Manu_country</RefColNames>
+    </foreign-key>
+    <column id="72" parent="15" name="id_Product_Catagory">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="73" parent="15" name="Sex">
+      <Position>2</Position>
+      <DataType>varchar(12)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="74" parent="15" name="Dress">
+      <Position>3</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="75" parent="15" name="Firm">
+      <Position>4</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="76" parent="15" name="Size">
+      <Position>5</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="77" parent="15" name="dress_idx">
+      <ColNames>Dress</ColNames>
+    </index>
+    <index id="78" parent="15" name="firm_idx">
+      <ColNames>Firm</ColNames>
+    </index>
+    <index id="79" parent="15" name="Size_idx">
+      <ColNames>Size</ColNames>
+    </index>
+    <key id="80" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Product_Catagory</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="81" parent="15" name="dress">
+      <ColNames>Dress</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Dress</RefTableName>
+      <RefColNames>id_Dress</RefColNames>
+    </foreign-key>
+    <foreign-key id="82" parent="15" name="firm">
+      <ColNames>Firm</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Firm</RefTableName>
+      <RefColNames>id_Firm</RefColNames>
+    </foreign-key>
+    <foreign-key id="83" parent="15" name="Size">
+      <ColNames>Size</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>Size</RefTableName>
+      <RefColNames>id_Size</RefColNames>
+    </foreign-key>
+    <column id="84" parent="16" name="id_Size">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="85" parent="16" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(5)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="86" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Size</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
