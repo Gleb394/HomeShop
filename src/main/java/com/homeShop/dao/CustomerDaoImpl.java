@@ -3,17 +3,20 @@ package com.homeShop.dao;
 import com.homeShop.customer.ConnectionUtil;
 import com.homeShop.customer.Customer;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-
 public class CustomerDaoImpl implements GenericDao {
+
+    PropertiesSetSample propertiesSetSample = new PropertiesSetSample();
 
     Connection connection;
 
-    public CustomerDaoImpl() throws SQLException {
+    public CustomerDaoImpl() throws SQLException, FileNotFoundException {
         connection = ConnectionUtil.getConnection();
     }
 
@@ -24,7 +27,10 @@ public class CustomerDaoImpl implements GenericDao {
 
         try {
             stmt = connection.createStatement();
+            stmt.executeQuery(propertiesSetSample.setSample("allDataBase"));
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
