@@ -1,4 +1,4 @@
-package com.homeShop.dao;
+package com.homeShop;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,11 +11,10 @@ public class PropertiesSetSample {
 
     Properties properties = new Properties();
 
-    final public static String PROPERTY_PATH = "/Users/imac/IdeaProjects/HomeShop/src/main/java/resources/SqlQueries.properties";
+    final private static String PROPERTY_PATH = "/Users/imac/IdeaProjects/HomeShop/src/main/java/resources/SqlQueries.properties";
 
     public String setSample (String set) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream(PROPERTY_PATH);
-        properties.load(fileInputStream);
+        properties.load(new FileInputStream(PROPERTY_PATH));
 
         return properties.getProperty(set);
     }
