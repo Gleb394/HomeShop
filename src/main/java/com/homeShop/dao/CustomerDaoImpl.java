@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
-public class CustomerDaoImpl implements GenericDao {
-
-    Customer customer = new Customer();
+public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
 
     PropertiesSetSample propertiesSetSample = new PropertiesSetSample();
 
@@ -22,47 +20,42 @@ public class CustomerDaoImpl implements GenericDao {
     }
 
     @Override
-    public Object add(Object elem) {
+    public Customer add(Customer customer) {
 
-        elem = new Customer();
-
-        elem = customer;
-
-        /*PreparedStatement ps;*/
-
-        Statement stmt = null;
+        customer = new Customer();
+        PreparedStatement ps;
 
         try {
-            /*ps = connection.prepareStatement(propertiesSetSample.setSample("addCustomerAllTable"));
-            ResultSet rs = ps.executeQuery(propertiesSetSample.setSample("CustomerResultSet"));*/
-            ResultSet rs = stmt.executeQuery(propertiesSetSample.setSample("addCustomerAllTable"));
-            while (rs.next()){
-                    customer.setFirstName(rs.getString(2));
-                    customer.setLastName(rs.getNString(3));
-                    customer.setPhone(rs.getInt(4));
-                    customer.setEMail(rs.getString(5));
-                    customer.setSex(rs.getString(6));
-                    customer.setAddress(rs.getNString(7));
-                    customer.setPassword(rs.getNString(8));
-                    customer.setNick(rs.getNString(9));
-            }
-            rs.close();
+            ps = connection.prepareStatement(propertiesSetSample.setSample("addCustomer"));
+            connection.setAutoCommit(false);
+
+            ps.setString(1, customer.getFirstName());
+            ps.setString(2, customer.getLastName());
+            ps.setInt(3, customer.getPhone());
+            ps.setString(4, customer.getEMail());
+            ps.setString(5, customer.getSex());
+            ps.setString(6, customer.getAddress());
+            ps.setString(7, customer.getPassword());
+            ps.setString(8, customer.getNick());
+
+            ps.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return elem;
+        return customer;
     }
 
     @Override
-    public Integer update(Object elem) {
+    public Integer update(Customer elem) {
         return null;
     }
 
     @Override
-    public void remove(Object o) {
+    public void remove(Integer o) {
 
     }
 
@@ -89,12 +82,13 @@ public class CustomerDaoImpl implements GenericDao {
 
     public static void main(String[] args) throws FileNotFoundException, SQLException {
 
-        Customer customer = new Customer("Gleb", "Tarasevic", 939765094, "Tarasevic.Hleb@gmail.com", "Man", "Vishgorod, mazepi 10",
-                "73452auo", "Glebas");
+        Customer customer = new Customer("Max", "Tom", 986594539, "Tom_titan@gmail.com", "Man", "Vishgorod, mazepi 10",
+                "52364xcc", "MaxTom");
+
+        /*System.out.println(customer.toString());*/
 
         CustomerDaoImpl customerDao = new CustomerDaoImpl();
 
         customerDao.add(customer);
-
     }
 }

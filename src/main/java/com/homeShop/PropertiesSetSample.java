@@ -9,9 +9,9 @@ import java.util.Properties;
  */
 public class PropertiesSetSample {
 
-    Properties properties = new Properties();
+    private Properties properties = new Properties();
 
-    final private static String PROPERTY_PATH = "/Users/imac/IdeaProjects/HomeShop/src/main/java/resources/SqlQueries.properties";
+    final private static String PROPERTY_PATH = "src/main/java/resources/SqlQueries.properties";
 
     public String setSample (String set) throws IOException {
         properties.load(new FileInputStream(PROPERTY_PATH));
