@@ -7,6 +7,7 @@ import com.homeShop.customer.Customer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
@@ -22,7 +23,6 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
     @Override
     public Customer add(Customer customer) {
 
-        customer = new Customer();
         PreparedStatement ps;
 
         try {
@@ -34,7 +34,7 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
             ps.setInt(3, customer.getPhone());
             ps.setString(4, customer.getEMail());
             ps.setString(5, customer.getSex());
-            ps.setString(6, customer.getAddress());
+            ps.setInt(6, customer.getAddress());
             ps.setString(7, customer.getPassword());
             ps.setString(8, customer.getNick());
 
@@ -50,8 +50,38 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
     }
 
     @Override
-    public Integer update(Customer elem) {
-        return null;
+    public Integer update(Customer customer, Integer id) {
+
+        Statement stmt;
+
+        PreparedStatement ps;
+
+        try {
+            /*stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("getCustomerID" + id);*/
+
+        ps = connection.prepareStatement(propertiesSetSample.setSample("updateCustomer"));
+            connection.setAutoCommit(false);
+
+            ps.setInt( 1, id);
+
+            ps.setString(2, customer.getFirstName());
+            ps.setString(3, customer.getLastName());
+            ps.setInt(4, customer.getPhone());
+            ps.setString(5, customer.getEMail());
+            ps.setString(6, customer.getSex());
+            ps.setInt(7, customer.getAddress());
+            ps.setString(8, customer.getPassword());
+            ps.setString(9, customer.getNick());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
     @Override
@@ -60,35 +90,78 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
     }
 
     @Override
-    public Customer get(int o) throws SQLException, IOException {
+    public Customer get(int id) throws SQLException, IOException {
+
+        String stringId = String.valueOf(id);
+
+        Customer customer = new Customer();
 
         Statement stmt;
         stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("getCustomer");
-        ResultSetMetaData rsmd = rs.getMetaData();
+        ResultSet rs = stmt.executeQuery(propertiesSetSample.setSample("getCustomerID") + stringId);
 
-        for (int i = 1; i <= o; i++ ) {
-            String name = rsmd.getColumnName(i);
+        while (rs.next()) {
+            customer.setId(rs.getInt(1));
+            customer.setFirstName(rs.getString(2));
+            customer.setLastName(rs.getString(3));
+            customer.setPhone(rs.getInt(4));
+            customer.setEMail(rs.getString(5));
+            customer.setSex(rs.getString(6));
+            customer.setAddress(rs.getInt(7));
+            customer.setPassword(rs.getString(8));
+            customer.setNick(rs.getString(9));
         }
-
-
-        return null;
+            return customer;
     }
 
     @Override
     public List getAll() {
-        return null;
+
+        List<Customer> list = new ArrayList<Customer>();
+
+        Statement stmt;
+
+        try {
+
+        stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(propertiesSetSample.setSample("allCustomer"));
+
+            while (rs.next()) {
+
+                Customer customer = new Customer();
+                customer.setId(rs.getInt(1));
+                customer.setFirstName(rs.getString(2));
+                customer.setLastName(rs.getString(3));
+                customer.setPhone(rs.getInt(4));
+                customer.setEMail(rs.getString(5));
+                customer.setSex(rs.getString(6));
+                customer.setAddress(rs.getInt(7));
+                customer.setPassword(rs.getString(8));
+                customer.setNick(rs.getString(9));
+                list.add(customer);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public static void main(String[] args) throws FileNotFoundException, SQLException {
 
-        Customer customer = new Customer("Max", "Tom", 986594539, "Tom_titan@gmail.com", "Man", "Vishgorod, mazepi 10",
+        Customer customer = new Customer("Max", "Tom", 986594539, "Tom_titan@gmail.com", "Man", 1,
                 "52364xcc", "MaxTom");
+        Customer customer1 = new Customer("Xoxox");
 
         /*System.out.println(customer.toString());*/
 
         CustomerDaoImpl customerDao = new CustomerDaoImpl();
 
-        customerDao.add(customer);
+        //customerDao.update(customer1, 6);
+            System.out.println(customerDao.getAll());
+
     }
 }
