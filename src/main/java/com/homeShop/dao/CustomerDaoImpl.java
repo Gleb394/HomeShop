@@ -63,8 +63,6 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
         ps = connection.prepareStatement(propertiesSetSample.setSample("updateCustomer"));
             connection.setAutoCommit(false);
 
-            ps.setInt( 1, id);
-
             ps.setString(2, customer.getFirstName());
             ps.setString(3, customer.getLastName());
             ps.setInt(4, customer.getPhone());
@@ -85,8 +83,19 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
     }
 
     @Override
-    public void remove(Integer o) {
+    public void remove(Integer id) {
 
+        PreparedStatement ps;
+
+        try {
+            ps = connection.prepareStatement(propertiesSetSample.setSample("removeCustomer"));
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -124,7 +133,7 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
         try {
 
         stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(propertiesSetSample.setSample("allCustomer"));
+            ResultSet rs = stmt.executeQuery(propertiesSetSample.setSample("getAllCustomer"));
 
             while (rs.next()) {
 
@@ -161,7 +170,8 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
         CustomerDaoImpl customerDao = new CustomerDaoImpl();
 
         //customerDao.update(customer1, 6);
-            System.out.println(customerDao.getAll());
+            //System.out.println(customerDao.getAll());
 
+        customerDao.remove(7);
     }
 }
