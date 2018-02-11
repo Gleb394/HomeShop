@@ -1,4 +1,4 @@
-package com.homeShop.customer;
+package com.homeShop;
 
 
 import java.sql.Connection;

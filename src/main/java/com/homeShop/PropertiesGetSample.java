@@ -7,15 +7,13 @@ import java.util.Properties;
 /**
  * Created by Gleb on 08.12.17.
  */
-public class PropertiesSetSample {
+public class PropertiesGetSample {
 
     private Properties properties = new Properties();
-
     final private static String PROPERTY_PATH = "src/main/java/resources/SqlQueries.properties";
 
-    public String setSample (String set) throws IOException {
+    public String getSample(String set) throws IOException {
         properties.load(new FileInputStream(PROPERTY_PATH));
-
         return properties.getProperty(set);
     }
 }

@@ -1,7 +1,7 @@
 package com.homeShop.dao;
 
-import com.homeShop.PropertiesSetSample;
-import com.homeShop.customer.ConnectionUtil;
+import com.homeShop.PropertiesGetSample;
+import com.homeShop.ConnectionUtil;
 import com.homeShop.customer.Customer;
 
 import java.io.FileNotFoundException;
@@ -12,85 +12,66 @@ import java.util.List;
 
 public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
 
-    PropertiesSetSample propertiesSetSample = new PropertiesSetSample();
-
+    PropertiesGetSample propertiesSetSample = new PropertiesGetSample();
     Connection connection;
-
     public CustomerDaoImpl() throws SQLException, FileNotFoundException {
         connection = ConnectionUtil.getConnection();
     }
 
     @Override
     public Customer add(Customer customer) {
-
-        PreparedStatement ps;
+        PreparedStatement addCustomer;
 
         try {
-            ps = connection.prepareStatement(propertiesSetSample.setSample("addCustomer"));
+            addCustomer = connection.prepareStatement(propertiesSetSample.getSample("addCustomer"));
             connection.setAutoCommit(false);
-
-            ps.setString(1, customer.getFirstName());
-            ps.setString(2, customer.getLastName());
-            ps.setInt(3, customer.getPhone());
-            ps.setString(4, customer.getEMail());
-            ps.setString(5, customer.getSex());
-            ps.setInt(6, customer.getAddress());
-            ps.setString(7, customer.getPassword());
-            ps.setString(8, customer.getNick());
-
-            ps.executeUpdate();
+            addCustomer.setString(1, customer.getFirstName());
+            addCustomer.setString(2, customer.getLastName());
+            addCustomer.setInt(3, customer.getPhone());
+            addCustomer.setString(4, customer.getEMail());
+            addCustomer.setString(5, customer.getSex());
+            addCustomer.setInt(6, customer.getAddress());
+            addCustomer.setString(7, customer.getPassword());
+            addCustomer.setString(8, customer.getNick());
+            addCustomer.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return customer;
     }
 
     @Override
-    public Integer update(Customer customer, Integer id) {
+    public Customer update(Customer customer ,Integer id) throws IOException, SQLException {
+        PreparedStatement updateCustomer;
+        Customer customerCopy;
+        CustomerDaoImpl customerDao = new CustomerDaoImpl();
+        customerCopy = customerDao.customerOverwrite(customerDao.get(id), customer);
+        updateCustomer = connection.prepareStatement(propertiesSetSample.getSample("updateCustomer"));
 
-        Statement stmt;
+        updateCustomer.setInt(9,id);
 
-        PreparedStatement ps;
-
-        try {
-            /*stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("getCustomerID" + id);*/
-
-        ps = connection.prepareStatement(propertiesSetSample.setSample("updateCustomer"));
-            connection.setAutoCommit(false);
-
-            ps.setString(2, customer.getFirstName());
-            ps.setString(3, customer.getLastName());
-            ps.setInt(4, customer.getPhone());
-            ps.setString(5, customer.getEMail());
-            ps.setString(6, customer.getSex());
-            ps.setInt(7, customer.getAddress());
-            ps.setString(8, customer.getPassword());
-            ps.setString(9, customer.getNick());
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return id;
+        updateCustomer.setString(1, customerCopy.getFirstName());
+        updateCustomer.setString(2, customerCopy.getLastName());
+        updateCustomer.setInt(3, customerCopy.getPhone());
+        updateCustomer.setString(4, customerCopy.getEMail());
+        updateCustomer.setString(5, customerCopy.getSex());
+        updateCustomer.setInt(6, customerCopy.getAddress());
+        updateCustomer.setString(7, customerCopy.getPassword());
+        updateCustomer.setString(8, customerCopy.getNick());
+        updateCustomer.executeUpdate();
+        return customer;
     }
 
     @Override
     public void remove(Integer id) {
-
-        PreparedStatement ps;
-
+        PreparedStatement removeCustomer;
         try {
-            ps = connection.prepareStatement(propertiesSetSample.setSample("removeCustomer"));
-            ps.setInt(1,id);
-            ps.executeUpdate();
+            removeCustomer = connection.prepareStatement(propertiesSetSample.getSample("removeCustomer"));
+            removeCustomer.setInt(1,id);
+            removeCustomer.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -100,14 +81,11 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
 
     @Override
     public Customer get(int id) throws SQLException, IOException {
-
-        String stringId = String.valueOf(id);
-
         Customer customer = new Customer();
-
-        Statement stmt;
-        stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(propertiesSetSample.setSample("getCustomerID") + stringId);
+        PreparedStatement getCustomer;
+        getCustomer = connection.prepareStatement(propertiesSetSample.getSample("getCustomer"));
+        getCustomer.setInt(1, id);
+        ResultSet rs = getCustomer.executeQuery();
 
         while (rs.next()) {
             customer.setId(rs.getInt(1));
@@ -125,18 +103,13 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
 
     @Override
     public List getAll() {
-
         List<Customer> list = new ArrayList<Customer>();
-
         Statement stmt;
 
         try {
-
         stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(propertiesSetSample.setSample("getAllCustomer"));
-
+            ResultSet rs = stmt.executeQuery(propertiesSetSample.getSample("getAllCustomer"));
             while (rs.next()) {
-
                 Customer customer = new Customer();
                 customer.setId(rs.getInt(1));
                 customer.setFirstName(rs.getString(2));
@@ -149,29 +122,43 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
                 customer.setNick(rs.getString(9));
                 list.add(customer);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return list;
     }
 
-    public static void main(String[] args) throws FileNotFoundException, SQLException {
-
-        Customer customer = new Customer("Max", "Tom", 986594539, "Tom_titan@gmail.com", "Man", 1,
-                "52364xcc", "MaxTom");
-        Customer customer1 = new Customer("Xoxox");
-
-        /*System.out.println(customer.toString());*/
-
-        CustomerDaoImpl customerDao = new CustomerDaoImpl();
-
-        //customerDao.update(customer1, 6);
-            //System.out.println(customerDao.getAll());
-
-        customerDao.remove(7);
+    public Customer customerOverwrite (Customer customer, Customer customer1){
+        if (customer.equals(customer1)){
+            return customer;
+        } else {
+            if (customer1.getFirstName() != null) {
+                customer.setFirstName(customer1.getFirstName());
+            }
+            if (customer1.getLastName() != null) {
+                customer.setLastName(customer1.getLastName());
+            }
+            if (customer1.getPhone() != 0) {
+                customer.setPhone(customer1.getPhone());
+            }
+            if (customer1.getEMail() != null) {
+                customer.setEMail(customer1.getEMail());
+            }
+            if (customer1.getSex() != null) {
+                customer.setSex(customer1.getSex());
+            }
+            if (customer1.getAddress() != 0) {
+                customer.setAddress(customer1.getAddress());
+            }
+            if (customer1.getPassword() != null) {
+                customer.setPassword(customer1.getPassword());
+            }
+            if (customer1.getNick() != null) {
+                customer.setNick(customer1.getNick());
+            }
+        }
+        return customer;
     }
 }
