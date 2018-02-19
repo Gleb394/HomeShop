@@ -36,8 +36,4 @@ public class Customer {
         this.password = password;
         this.nick = nick;
     }
-
-    public Customer(String nick) {
-        this.nick = nick;
-    }
 }
