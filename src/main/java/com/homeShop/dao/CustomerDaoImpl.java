@@ -46,22 +46,20 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
     @Override
     public Customer update(Customer customer ,Integer id) throws IOException, SQLException {
         PreparedStatement updateCustomer;
-        Customer customerCopy;
-        CustomerDaoImpl customerDao = new CustomerDaoImpl();
-        customerCopy = customerDao.customerOverwrite(customerDao.get(id), customer);
         updateCustomer = connection.prepareStatement(propertiesSetSample.getSample("updateCustomer"));
-
         updateCustomer.setInt(9,id);
+        connection.setAutoCommit(false);
 
-        updateCustomer.setString(1, customerCopy.getFirstName());
-        updateCustomer.setString(2, customerCopy.getLastName());
-        updateCustomer.setInt(3, customerCopy.getPhone());
-        updateCustomer.setString(4, customerCopy.getEMail());
-        updateCustomer.setString(5, customerCopy.getSex());
-        updateCustomer.setInt(6, customerCopy.getAddress());
-        updateCustomer.setString(7, customerCopy.getPassword());
-        updateCustomer.setString(8, customerCopy.getNick());
+        updateCustomer.setString(1, customer.getFirstName());
+        updateCustomer.setString(2, customer.getLastName());
+        updateCustomer.setInt(3, customer.getPhone());
+        updateCustomer.setString(4, customer.getEMail());
+        updateCustomer.setString(5, customer.getSex());
+        updateCustomer.setInt(6, customer.getAddress());
+        updateCustomer.setString(7, customer.getPassword());
+        updateCustomer.setString(8, customer.getNick());
         updateCustomer.executeUpdate();
+        connection.commit();
         return customer;
     }
 
@@ -72,6 +70,7 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
             removeCustomer = connection.prepareStatement(propertiesSetSample.getSample("removeCustomer"));
             removeCustomer.setInt(1,id);
             removeCustomer.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -102,7 +101,7 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
     }
 
     @Override
-    public List getAll() {
+    public List<Customer> getAll() {
         List<Customer> list = new ArrayList<Customer>();
         Statement stmt;
 
@@ -128,37 +127,5 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
             e.printStackTrace();
         }
         return list;
-    }
-
-    public Customer customerOverwrite (Customer customer, Customer customer1){
-        if (customer.equals(customer1)){
-            return customer;
-        } else {
-            if (customer1.getFirstName() != null) {
-                customer.setFirstName(customer1.getFirstName());
-            }
-            if (customer1.getLastName() != null) {
-                customer.setLastName(customer1.getLastName());
-            }
-            if (customer1.getPhone() != 0) {
-                customer.setPhone(customer1.getPhone());
-            }
-            if (customer1.getEMail() != null) {
-                customer.setEMail(customer1.getEMail());
-            }
-            if (customer1.getSex() != null) {
-                customer.setSex(customer1.getSex());
-            }
-            if (customer1.getAddress() != 0) {
-                customer.setAddress(customer1.getAddress());
-            }
-            if (customer1.getPassword() != null) {
-                customer.setPassword(customer1.getPassword());
-            }
-            if (customer1.getNick() != null) {
-                customer.setNick(customer1.getNick());
-            }
-        }
-        return customer;
     }
 }

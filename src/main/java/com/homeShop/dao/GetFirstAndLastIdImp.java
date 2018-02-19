@@ -27,12 +27,13 @@ public class GetFirstAndLastIdImp implements GetFirstAndLastId {
     public Integer getFirstElem() throws IOException, SQLException {
         Integer id = null;
         PreparedStatement ps = connection.prepareStatement(propertiesSetSample.getSample("getFirstID"));
+        connection.setAutoCommit(false);
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
           id = rs.getInt(1);
         }
-
+        connection.commit();
         return id;
     }
 
@@ -40,12 +41,13 @@ public class GetFirstAndLastIdImp implements GetFirstAndLastId {
     public Integer getLastElem() throws IOException, SQLException {
         Integer id = null;
         PreparedStatement ps = connection.prepareStatement(propertiesSetSample.getSample("getLastID"));
+        connection.setAutoCommit(false);
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
             id = rs.getInt(1);
         }
-
+        connection.commit();
         return id;
     }
 }

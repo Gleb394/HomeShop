@@ -2,6 +2,7 @@ package com.homeShop.dao;
 
 import com.homeShop.customer.Customer;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -13,15 +14,22 @@ import java.sql.SQLException;
  */
 public class TestCustomerDaoImpl {
 
-    private Customer newCustomer = new Customer("Max", "Tom", 986594539, "Tom_titan@gmail.com", "Man", 1,
-            "52364xcc", "MaxTom");
-    private Customer updateCustomer = new Customer("Xoxox");
+    private Customer newCustomer;
+    private Customer updateCustomer;
     private CustomerDaoImpl customerDao = new CustomerDaoImpl();
-    private GetFirstAndLastIdImp getFirstAndLastIdImp;
+    private GetFirstAndLastIdImp getFirstAndLastIdImp = new GetFirstAndLastIdImp();
     private int size;
     private int sizeAfter;
 
     public TestCustomerDaoImpl() throws FileNotFoundException, SQLException {
+    }
+
+    @Before
+    public void beforeCreateCustomer (){
+        newCustomer = new Customer("Max", "Tom", 986594539, "Tom_titan@gmail.com", "Man", 1,
+                "52364xcc", "Max");
+        updateCustomer = new Customer("Max", "Tom", 986594539, "Tom_titan@gmail.com", "Man", 1,
+                "52364xcc", "MaxTom");
     }
 
     @Test
@@ -32,10 +40,22 @@ public class TestCustomerDaoImpl {
         Assert.assertNotEquals(size, sizeAfter);
     }
 
+
+
     @Test
     public void updateCustomer(){
 
     }
+
+    @Test
+    public void getCustomer() throws IOException, SQLException {
+        Customer customerAdd = customerDao.add(newCustomer);
+        Customer customerGet = customerDao.get(getFirstAndLastIdImp.getLastElem());
+        Assert.assertEquals(customerAdd, customerGet);
+        customerDao.remove(getFirstAndLastIdImp.getLastElem());
+
+    }
+
 
     @Test
     public void removeCustomer () throws IOException, SQLException {
