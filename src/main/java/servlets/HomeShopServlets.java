@@ -9,11 +9,11 @@ import java.io.IOException;
 
 @WebServlet("/homeShop")
 public class HomeShopServlets extends HttpServlet {
-    /*@Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.doPost(request, response);
-    }*/
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
