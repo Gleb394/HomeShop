@@ -21,7 +21,7 @@ public class HomeShopServlets extends HttpServlet {
 
         request.setAttribute("name","HomeShop");
 
-        request.getRequestDispatcher("HomeShopCustomer.jsp").forward(request, response);
+        request.getRequestDispatcher("/HomeShopCustomer.jsp").forward(request, response);
 
     }
 }

@@ -1,7 +1,9 @@
 package com.homeShop.customer;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(exclude = {"id"})
 @Data
 public class Customer {
     private int id;
