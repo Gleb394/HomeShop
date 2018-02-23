@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/homeShop")
+@WebServlet("/homeShopCustomer.jsp")
 public class HomeShopServlets extends HttpServlet {
     /*@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
