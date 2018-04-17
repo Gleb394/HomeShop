@@ -9,9 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/**
- * Created by Gleb on 30.01.18.
- */
 public class TestCustomerDaoImpl {
 
     private Customer newCustomer;
@@ -40,13 +37,6 @@ public class TestCustomerDaoImpl {
         Assert.assertNotEquals(size, sizeAfter);
     }
 
-
-
-    @Test
-    public void updateCustomer(){
-
-    }
-
     @Test
     public void getCustomer() throws IOException, SQLException {
         Customer customerAdd = customerDao.add(newCustomer);
@@ -55,7 +45,6 @@ public class TestCustomerDaoImpl {
         customerDao.remove(getFirstAndLastIdImp.getLastElem());
 
     }
-
 
     @Test
     public void removeCustomer () throws IOException, SQLException {

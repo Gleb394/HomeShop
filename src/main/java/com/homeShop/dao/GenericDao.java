@@ -10,7 +10,7 @@ public interface GenericDao<E, ID> {
 
     Object add(E elem);
 
-    Object update(E elem, ID id) throws IOException, SQLException;
+    Object update(E elem) throws IOException, SQLException;
 
     void remove(ID id);
 

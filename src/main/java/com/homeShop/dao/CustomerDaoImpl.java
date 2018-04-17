@@ -12,8 +12,9 @@ import java.util.List;
 
 public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
 
-    PropertiesGetSample propertiesSetSample = new PropertiesGetSample();
-    Connection connection;
+    private PropertiesGetSample propertiesSetSample = new PropertiesGetSample();
+    private Connection connection;
+
     public CustomerDaoImpl() throws SQLException, FileNotFoundException {
         connection = ConnectionUtil.getConnection();
     }
@@ -44,10 +45,9 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
     }
 
     @Override
-    public Customer update(Customer customer ,Integer id) throws IOException, SQLException {
+    public Customer update(Customer customer) throws IOException, SQLException {
         PreparedStatement updateCustomer;
         updateCustomer = connection.prepareStatement(propertiesSetSample.getSample("updateCustomer"));
-        updateCustomer.setInt(9,id);
         connection.setAutoCommit(false);
 
         updateCustomer.setString(1, customer.getFirstName());
@@ -68,7 +68,7 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
         PreparedStatement removeCustomer;
         try {
             removeCustomer = connection.prepareStatement(propertiesSetSample.getSample("removeCustomer"));
-            removeCustomer.setInt(1,id);
+            removeCustomer.setInt(1, id);
             removeCustomer.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
@@ -97,7 +97,7 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
             customer.setPassword(rs.getString(8));
             customer.setNick(rs.getString(9));
         }
-            return customer;
+        return customer;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
         Statement stmt;
 
         try {
-        stmt = connection.createStatement();
+            stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(propertiesSetSample.getSample("getAllCustomer"));
             while (rs.next()) {
                 Customer customer = new Customer();

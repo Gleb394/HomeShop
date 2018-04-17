@@ -10,7 +10,7 @@ import java.util.Properties;
 public class PropertiesGetSample {
 
     private Properties properties = new Properties();
-    final private static String PROPERTY_PATH = "src/main/java/resources/SqlQueries.properties";
+    final private static String PROPERTY_PATH = "/Users/imac/IdeaProjects/HomeShop/src/main/webapp/WEB-INF/SqlQueries.properties";
 
     public String getSample(String set) throws IOException {
         properties.load(new FileInputStream(PROPERTY_PATH));

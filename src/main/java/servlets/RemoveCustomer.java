@@ -10,19 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/HomeShop")
-public class HomeShopServlets extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+/**
+ * Created by Gleb on 04.04.18.
+ */
+@WebServlet("/RemoveCustomer")
+public class RemoveCustomer extends HttpServlet {
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       /*Integer id = Integer.parseInt(req.getParameter("id"));*/
 
         try {
             CustomerDaoImpl customerDao = new CustomerDaoImpl();
-            request.setAttribute("cust", customerDao.getAll());
+            customerDao.remove(Integer.parseInt(req.getParameter("id")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        request.getRequestDispatcher("/WEB-INF/HomeShopCustomer.jsp").forward(request, response);
+        resp.sendRedirect("HomeShop");
     }
 }
