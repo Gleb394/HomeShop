@@ -1,6 +1,6 @@
 package com.homeShop.dao;
 
-import com.homeShop.customer.Customer;
+import com.homeShop.beans.Customer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

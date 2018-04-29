@@ -22,15 +22,9 @@ public class ConnectionUtil {
     public static Connection getConnection() {
         if (connection != null) return connection;
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             return connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;

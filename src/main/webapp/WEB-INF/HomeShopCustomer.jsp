@@ -64,7 +64,7 @@
         <input type="text" name="id" class="form-control" placeholder="Id" value="">
     </div>
 </form>
-<form action="UpdateCustomer" method="get" class="navbar-form navbar-right">
+<form action="UpdateCustomer" method="post" class="navbar-form navbar-right">
     <div class="form-group">
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-sign-in"></i> изминить

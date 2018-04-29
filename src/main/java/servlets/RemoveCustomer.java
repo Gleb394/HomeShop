@@ -10,22 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/**
- * Created by Gleb on 04.04.18.
- */
 @WebServlet("/RemoveCustomer")
 public class RemoveCustomer extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       /*Integer id = Integer.parseInt(req.getParameter("id"));*/
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
             CustomerDaoImpl customerDao = new CustomerDaoImpl();
-            customerDao.remove(Integer.parseInt(req.getParameter("id")));
+            customerDao.remove(Integer.parseInt(request.getParameter("id")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        resp.sendRedirect("HomeShop");
+        response.sendRedirect("HomeShop");
     }
 }

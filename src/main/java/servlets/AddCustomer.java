@@ -1,6 +1,6 @@
 package servlets;
 
-import com.homeShop.customer.Customer;
+import com.homeShop.beans.Customer;
 import com.homeShop.dao.CustomerDaoImpl;
 
 import javax.servlet.ServletException;

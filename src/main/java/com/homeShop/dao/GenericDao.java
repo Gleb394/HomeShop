@@ -1,6 +1,6 @@
 package com.homeShop.dao;
 
-import com.homeShop.customer.Customer;
+import com.homeShop.beans.Customer;
 
 import java.io.IOException;
 import java.sql.SQLException;

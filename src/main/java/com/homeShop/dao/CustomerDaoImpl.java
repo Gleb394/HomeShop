@@ -2,7 +2,7 @@ package com.homeShop.dao;
 
 import com.homeShop.PropertiesGetSample;
 import com.homeShop.ConnectionUtil;
-import com.homeShop.customer.Customer;
+import com.homeShop.beans.Customer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -58,6 +58,7 @@ public class CustomerDaoImpl implements GenericDao<Customer, Integer> {
         updateCustomer.setInt(6, customer.getAddress());
         updateCustomer.setString(7, customer.getPassword());
         updateCustomer.setString(8, customer.getNick());
+        updateCustomer.setInt(9 ,customer.getId());
         updateCustomer.executeUpdate();
         connection.commit();
         return customer;

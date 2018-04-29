@@ -1,4 +1,4 @@
-package com.homeShop.customer;
+package com.homeShop.beans;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,7 +18,17 @@ public class Customer {
 
     public Customer() {
     }
-
+    public Customer(int id, String firstName, String lastName, int phone, String eMail, String sex, int address, String password, String nick) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.eMail = eMail;
+        this.sex = sex;
+        this.address = address;
+        this.password = password;
+        this.nick = nick;
+    }
     public Customer(String firstName, String lastName, int phone, String eMail, String sex, int address, String password, String nick) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,17 +39,5 @@ public class Customer {
         this.password = password;
         this.nick = nick;
     }
-    public Customer(String firstName, String lastName, int phone, String eMail, String sex, String password, String nick) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.eMail = eMail;
-        this.sex = sex;
-        this.password = password;
-        this.nick = nick;
-    }
-
-    public Customer(String nick) {
-        this.nick = nick;
-    }
 }
+

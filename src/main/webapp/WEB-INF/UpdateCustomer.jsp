@@ -14,7 +14,7 @@
 <body>
 <form action="UpdateCustomer" method="get" class="navbar-form navbar-right">
     <div class="form-group">
-        <input type="text" name="firstName" class="form-control" placeholder="firstName" value="${cust.id}">
+        <input type="text" name="id" class="form-control" placeholder="firstName" value="${cust.id}">
     </div>
     <div class="form-group">
         <input type="text" name="firstName" class="form-control" placeholder="firstName" value="${cust.firstName}">
